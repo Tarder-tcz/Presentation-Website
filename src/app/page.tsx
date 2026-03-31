@@ -103,9 +103,9 @@ export default function Presentation() {
                   {slide.title}
                 </h2>
               </div>
-              
+
               <div className="hidden md:flex flex-col justify-center py-4">
-                <motion.div 
+                <motion.div
                   variants={{
                     enter: { scaleY: 0, opacity: 0, originY: 0.5 },
                     center: { scaleY: 1, opacity: 1, originY: 0.5, transition: { duration: 0.7, ease: "easeOut", delay: 0.1 } },
@@ -250,7 +250,7 @@ export default function Presentation() {
 
   return (
     <main className="grid-wrapper w-screen h-screen overflow-hidden font-sans text-slate-900 selection:bg-indigo-200">
-      <motion.div 
+      <motion.div
         className="grid-background pointer-events-none"
         animate={{
           WebkitMaskImage: `radial-gradient(ellipse 70% 60% at ${currentFocalPoint}, #000 60%, transparent 100%)`,
