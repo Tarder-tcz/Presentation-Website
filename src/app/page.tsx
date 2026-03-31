@@ -96,29 +96,43 @@ export default function Presentation() {
         );
       case 'split':
         return (
-          <div className="flex flex-col md:flex-row h-full items-center p-12 lg:p-24 gap-12">
-            <div className="flex-1 w-full">
-              <h2 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-8 leading-tight">
-                {slide.title}
-              </h2>
-            </div>
-            <div className="flex-1 w-full text-left">
-              <ul className="space-y-8">
-                {Array.isArray(slide.content) ? slide.content.map((item, idx) => (
-                  <motion.li 
-                    key={idx}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.15, duration: 0.5, type: 'spring' }}
-                    className="text-xl lg:text-3xl text-slate-700 font-medium flex items-start"
-                  >
-                    <span className="inline-block w-4 h-4 rounded-full bg-indigo-500 mt-2.5 mr-6 flex-shrink-0" />
-                    <span>{item}</span>
-                  </motion.li>
-                )) : (
-                  <p className="text-2xl text-slate-700">{slide.content}</p>
-                )}
-              </ul>
+          <div className="flex flex-col h-full items-center justify-center p-12 lg:p-24">
+            <div className="flex flex-col md:flex-row w-full max-w-7xl mx-auto items-stretch gap-8 lg:gap-16">
+              <div className="flex-1 w-full flex flex-col justify-center">
+                <h2 className="text-5xl lg:text-7xl font-bold text-slate-900 leading-tight">
+                  {slide.title}
+                </h2>
+              </div>
+              
+              <div className="hidden md:flex flex-col justify-center py-4">
+                <motion.div 
+                  variants={{
+                    enter: { scaleY: 0, opacity: 0, originY: 0.5 },
+                    center: { scaleY: 1, opacity: 1, originY: 0.5, transition: { duration: 0.7, ease: "easeOut", delay: 0.1 } },
+                    exit: { scaleY: 0, opacity: 0, originY: 0.5, transition: { duration: 0.4, ease: "easeIn" } }
+                  }}
+                  className="w-[3px] bg-slate-300 rounded-full h-full"
+                />
+              </div>
+
+              <div className="flex-1 w-full flex flex-col justify-center text-left">
+                <ul className="space-y-8">
+                  {Array.isArray(slide.content) ? slide.content.map((item, idx) => (
+                    <motion.li
+                      key={idx}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 + idx * 0.15, duration: 0.5, type: 'spring' }}
+                      className="text-xl lg:text-3xl text-slate-700 font-medium flex items-start"
+                    >
+                      <span className="inline-block w-4 h-4 rounded-full bg-indigo-500 mt-2.5 mr-6 flex-shrink-0" />
+                      <span>{item}</span>
+                    </motion.li>
+                  )) : (
+                    <p className="text-2xl text-slate-700">{slide.content}</p>
+                  )}
+                </ul>
+              </div>
             </div>
           </div>
         );
@@ -156,7 +170,7 @@ export default function Presentation() {
             {slide.stats && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mx-auto">
                 {slide.stats.map((stat, idx) => (
-                  <motion.div 
+                  <motion.div
                     key={idx}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -175,21 +189,82 @@ export default function Presentation() {
             )}
           </div>
         );
+      case 'table':
+        return (
+          <div className="flex flex-col h-full items-center justify-center p-12 lg:p-24 max-w-5xl mx-auto w-full">
+            {slide.title && (
+              <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 mb-12 text-center">
+                {slide.title}
+              </h2>
+            )}
+            {slide.tableData && (
+              <div className="w-full max-w-4xl bg-white/50 backdrop-blur-sm shadow-xl rounded-3xl border border-white overflow-hidden p-2 sm:p-4 lg:p-8">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse min-w-[600px]">
+                    <thead>
+                      <tr className="border-b-2 border-indigo-200/50">
+                        {slide.tableData.headers.map((header, idx) => (
+                          <th key={idx} className="py-4 px-6 font-bold text-lg lg:text-xl text-indigo-900 tracking-wide">
+                            {header}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {slide.tableData.rows.map((row, rowIndex) => (
+                        <tr
+                          key={rowIndex}
+                          className="border-b border-slate-200/50 last:border-0 hover:bg-white/60 transition-colors duration-200"
+                        >
+                          {row.map((cell, cellIndex) => (
+                            <td key={cellIndex} className="py-4 px-6 text-base lg:text-lg text-slate-700 font-medium whitespace-nowrap">
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+            {slide.content && typeof slide.content === 'string' && slide.content !== "" && (
+              <p className="mt-8 text-xl text-slate-600 font-medium text-center">
+                {slide.content}
+              </p>
+            )}
+          </div>
+        );
       default:
         return null;
     }
   };
 
+  const focalPoints = [
+    "50% 0%",
+    "100% 50%",
+    "50% 100%",
+    "0% 50%",
+  ];
+  const currentFocalPoint = focalPoints[currentSlide % focalPoints.length];
+
   return (
-    <main className="w-screen h-screen overflow-hidden bg-slate-50 font-sans text-slate-900 relative selection:bg-indigo-200">
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-100 via-indigo-50/30 to-slate-200 pointer-events-none" />
-      
+    <main className="grid-wrapper w-screen h-screen overflow-hidden font-sans text-slate-900 selection:bg-indigo-200">
+      <motion.div 
+        className="grid-background pointer-events-none"
+        animate={{
+          WebkitMaskImage: `radial-gradient(ellipse 70% 60% at ${currentFocalPoint}, #000 60%, transparent 100%)`,
+          maskImage: `radial-gradient(ellipse 70% 60% at ${currentFocalPoint}, #000 60%, transparent 100%)`
+        } as any}
+        transition={{ duration: 1.2, ease: "easeInOut" }}
+      />
+
       {/* Background Decorative Blobs */}
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-200/40 blur-3xl pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-200/40 blur-3xl pointer-events-none" />
 
       {isGridView ? (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -198,14 +273,14 @@ export default function Presentation() {
           <div className="max-w-7xl mx-auto">
             <div className="flex justify-between items-center mb-12 mt-4">
               <h2 className="text-3xl font-bold tracking-tight text-slate-800">Slide Overview</h2>
-              <button 
+              <button
                 onClick={toggleGrid}
                 className="px-6 py-3 bg-indigo-600 text-white rounded-full font-semibold shadow-lg hover:bg-indigo-700 transition-colors flex items-center gap-2"
               >
                 Close Grid (G)
               </button>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 pb-12">
               {slideData.map((slide, idx) => (
                 <motion.div
@@ -261,23 +336,23 @@ export default function Presentation() {
           <div className="absolute bottom-8 left-12 right-12 flex justify-between items-center text-slate-500 text-sm font-semibold tracking-wide border-t border-slate-200/50 pt-6">
             <div className="flex items-center gap-8">
               <span className="opacity-80 text-slate-700">{slideData[currentSlide].speaker}</span>
-              <span className="opacity-0 lg:opacity-60 hidden md:inline-block">Press 'G' for Grid View • Espcape to close</span>
+              <span className="opacity-0 lg:opacity-60 hidden md:inline-block">Press 'G' for Grid View • Escape to close</span>
             </div>
             <div className="flex items-center gap-6">
               <div className="flex gap-2">
-                <button 
+                <button
                   onClick={prevSlide}
                   className="w-10 h-10 rounded-full bg-white/50 border border-slate-200 flex items-center justify-center hover:bg-white hover:text-indigo-600 transition-colors shadow-sm"
                   aria-label="Previous Slide"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
                 </button>
-                <button 
+                <button
                   onClick={nextSlide}
                   className="w-10 h-10 rounded-full bg-white/50 border border-slate-200 flex items-center justify-center hover:bg-white hover:text-indigo-600 transition-colors shadow-sm"
                   aria-label="Next Slide"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
                 </button>
               </div>
               <span className="w-16 text-right tabular-nums opacity-60">
