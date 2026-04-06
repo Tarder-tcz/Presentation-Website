@@ -89,19 +89,49 @@ export default function Presentation() {
             <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-indigo-900 to-indigo-500 mb-6 py-2">
               {slide.title}
             </h1>
-            <p className="text-2xl md:text-3xl text-slate-600 font-medium max-w-3xl leading-relaxed">
-              {slide.content}
-            </p>
+            {typeof slide.content === 'string' && (
+              <p className="text-2xl md:text-3xl text-slate-600 font-medium max-w-3xl leading-relaxed">
+                {slide.content}
+              </p>
+            )}
           </div>
         );
       case 'split':
         return (
           <div className="flex flex-col h-full items-center justify-center p-12 lg:p-24">
             <div className="flex flex-col md:flex-row w-full max-w-7xl mx-auto items-stretch gap-8 lg:gap-16">
-              <div className="flex-1 w-full flex flex-col justify-center">
-                <h2 className="text-5xl lg:text-7xl font-bold text-slate-900 leading-tight">
-                  {slide.title}
-                </h2>
+              <div className="flex-1 w-full flex flex-col justify-between h-full py-2 lg:py-8">
+                <div className="flex-1 flex items-start justify-center md:justify-start w-full min-h-[100px]">
+                  {slide.imageTop && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: -20 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      transition={{ duration: 0.6, delay: 0.1 }}
+                      className={`relative w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden flex items-center justify-center ${slide.imageTopClassName || ''}`}
+                    >
+                      <img src={slide.imageTop} alt="" className="w-full h-full object-cover" />
+                    </motion.div>
+                  )}
+                </div>
+
+                <div className="flex-none my-6 md:my-10">
+                  <h2 className="text-5xl lg:text-7xl font-bold text-slate-900 leading-tight text-center md:text-left text-balance">
+                    {slide.title}
+                  </h2>
+                </div>
+
+                <div className="flex-1 flex items-end justify-center md:justify-start w-full min-h-[100px]">
+                  {slide.imageBottom && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      className={`relative w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden flex items-center justify-center ${slide.imageBottomClassName || ''}`}
+                    >
+                      <img src={slide.imageBottom} alt="" className="w-full h-full object-cover" />
+                    </motion.div>
+                  )}
+                </div>
               </div>
 
               <div className="hidden md:flex flex-col justify-center py-4">
@@ -116,20 +146,33 @@ export default function Presentation() {
               </div>
 
               <div className="flex-1 w-full flex flex-col justify-center text-left">
-                <ul className="space-y-8">
-                  {Array.isArray(slide.content) ? slide.content.map((item, idx) => (
-                    <motion.li
-                      key={idx}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 + idx * 0.15, duration: 0.5, type: 'spring' }}
-                      className="text-xl lg:text-3xl text-slate-700 font-medium flex items-start"
-                    >
-                      <span className="inline-block w-4 h-4 rounded-full bg-indigo-500 mt-2.5 mr-6 flex-shrink-0" />
-                      <span>{item}</span>
-                    </motion.li>
-                  )) : (
-                    <p className="text-2xl text-slate-700">{slide.content}</p>
+                <ul className="space-y-6 lg:space-y-8">
+                  {Array.isArray(slide.content) ? slide.content.map((item, idx) => {
+                    const isObject = typeof item === 'object' && item !== null && 'header' in item;
+                    const header = isObject ? (item as any).header : item;
+                    const description = isObject ? (item as any).description : "";
+
+                    return (
+                      <motion.li
+                        key={idx}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.2 + idx * 0.15, duration: 0.5, type: 'spring' }}
+                        className="flex flex-col items-start group"
+                      >
+                        <div className="text-xl lg:text-2xl text-slate-800 font-bold flex items-start w-full group-hover:text-indigo-600 transition-colors">
+                          <span className="inline-block w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-indigo-500 mt-2.5 mr-4 lg:mr-6 flex-shrink-0 shadow-sm" />
+                          <span>{header}</span>
+                        </div>
+                        {description && (
+                          <p className="text-base lg:text-lg text-slate-500 mt-1.5 ml-7 lg:ml-10 leading-relaxed">
+                            {description}
+                          </p>
+                        )}
+                      </motion.li>
+                    );
+                  }) : (
+                    <p className="text-2xl text-slate-700">{slide.content as string}</p>
                   )}
                 </ul>
               </div>
@@ -142,9 +185,11 @@ export default function Presentation() {
             <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 mb-12">
               {slide.title}
             </h2>
-            <p className="text-2xl lg:text-4xl text-slate-700 leading-relaxed font-medium">
-              {slide.content}
-            </p>
+            {typeof slide.content === 'string' && (
+              <p className="text-2xl lg:text-4xl text-slate-700 leading-relaxed font-medium">
+                {slide.content}
+              </p>
+            )}
           </div>
         );
       case 'quote':
@@ -152,9 +197,11 @@ export default function Presentation() {
           <div className="flex flex-col h-full items-center justify-center p-12 lg:p-24 max-w-5xl mx-auto">
             <div className="relative">
               <span className="absolute -top-16 -left-12 text-8xl text-indigo-200 font-serif">"</span>
-              <h2 className="text-3xl lg:text-5xl font-semibold text-slate-800 leading-tight italic z-10 relative">
-                {slide.content}
-              </h2>
+              {typeof slide.content === 'string' && (
+                <h2 className="text-3xl lg:text-5xl font-semibold text-slate-800 leading-tight italic z-10 relative">
+                  {slide.content}
+                </h2>
+              )}
             </div>
           </div>
         );
@@ -164,9 +211,11 @@ export default function Presentation() {
             <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 mb-8 text-center">
               {slide.title}
             </h2>
-            <p className="text-xl lg:text-2xl text-slate-600 font-medium text-center mb-16 max-w-3xl mx-auto">
-              {slide.content}
-            </p>
+            {typeof slide.content === 'string' && (
+              <p className="text-xl lg:text-2xl text-slate-600 font-medium text-center mb-16 max-w-3xl mx-auto">
+                {slide.content}
+              </p>
+            )}
             {slide.stats && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mx-auto">
                 {slide.stats.map((stat, idx) => (

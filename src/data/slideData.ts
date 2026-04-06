@@ -2,10 +2,12 @@ import { m } from "framer-motion";
 
 export type LayoutType = 'title' | 'split' | 'single' | 'quote' | 'metrics' | 'table';
 
+export type SplitContent = { header: string; description: string };
+
 export interface SlideData {
   id: string;
   title: string;
-  content: string | string[];
+  content: string | string[] | SplitContent[];
   speaker: string;
   layoutType: LayoutType;
   stats?: { label: string; value: string }[];
@@ -13,6 +15,10 @@ export interface SlideData {
     headers: string[];
     rows: string[][];
   };
+  imageTop?: string;
+  imageTopClassName?: string;
+  imageBottom?: string;
+  imageBottomClassName?: string;
 }
 
 export const slideData: SlideData[] = [
@@ -38,24 +44,28 @@ export const slideData: SlideData[] = [
     id: "slide-2",
     title: "Introduction",
     content: [
-      "Startup require funding to grow and scale",
-      "Investors provide capital in exchange for returns",
-      "Choosing the right investor is critical",
-      "Decision impacts long-term success",
-      "Case: Educational app startup with 2 offers"
+      { header: "Startup require funding to grow and scale", description: "Capital accelerates growth, enabling product development, marketing, and talent acquisition." },
+      { header: "Investors provide capital in exchange for returns", description: "In exchange for risk, investors take equity stakes expecting value appreciation." },
+      { header: "Choosing the right investor is critical", description: "It goes beyond money; cultural fit, industry network, and long-term vision matter." },
+      { header: "Decision impacts long-term success", description: "A misaligned investor can force premature exits or slow down necessary pivots." },
+      { header: "Case: Educational app startup with 2 offers", description: "We will evaluate two distinct funding paths for our rapidly expanding ed-tech platform." }
     ],
     speaker: "Jay Singh",
-    layoutType: "split"
+    layoutType: "split",
+    imageTop: "https://img.freepik.com/free-vector/stylish-welcome-lettering-banner-join-with-joy-happiness_1017-57675.jpg?semt=ais_incoming&w=740&q=80",
+    imageTopClassName: "absolute -top-10 -left-15 -rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden",
+    imageBottom: "https://memberpress.com/wp-content/uploads/2020/10/learning-management-system.jpg",
+    imageBottomClassName: "absolute -bottom-10 -right-15 rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden"
   },
   {
     id: "slide-3",
     title: "Objectives/Agenda",
     content: [
-      "Understand startup funding basics",
-      "Compare two investors offers",
-      "Analyze pros and cons",
-      "Recommend best investor",
-      "Justify decision logically"
+      { header: "Understand startup funding basics", description: "A quick primer on equity, valuation, and what investors typically expect in return." },
+      { header: "Compare two investors offers", description: "Side-by-side analysis of terms, valuation, and post-investment control conditions." },
+      { header: "Analyze pros and cons", description: "Evaluating the benefits and trade-offs of each proposed investment scenario." },
+      { header: "Recommend best investor", description: "Providing a clear path forward based on empirical data and strategic alignment." },
+      { header: "Justify decision logically", description: "Walking through the key metrics and qualitative factors that informed the final choice." }
     ],
     speaker: "Jay Singh",
     layoutType: "split"
@@ -64,11 +74,11 @@ export const slideData: SlideData[] = [
     id: "slide-4",
     title: "About the startup",
     content: [
-      "Developing an educational mobile app",
-      "Target users: Students & Learners",
-      "Focus: Affordable and accessible learning",
-      "Revenue model: Subscription-based",
-      "Goal: Rapid growth and market expansion"
+      { header: "Developing an educational mobile app", description: "An interactive platform bridging the gap between theoretical learning and practical application." },
+      { header: "Target users: Students & Learners", description: "Focusing primarily on high school and early college students looking for supplemental education." },
+      { header: "Focus: Affordable and accessible learning", description: "Ensuring quality education reaches underserved demographics via a freemium model." },
+      { header: "Revenue model: Subscription-based", description: "Tiered monthly subscriptions providing premium content, tutoring, and analytics." },
+      { header: "Goal: Rapid growth and market expansion", description: "Targeting 1 million active users within the next 18 months." }
     ],
     speaker: "Kashish Gupta",
     layoutType: "split"
@@ -77,11 +87,11 @@ export const slideData: SlideData[] = [
     id: "slide-5",
     title: "Investor Offer 1",
     content: [
-      "High funding amount",
-      "Demands higher equity (ownership)",
-      "Active involvement in decision-making",
-      "Focus on fast growth",
-      "High pressure for returns"
+      { header: "High funding amount", description: "Provides substantial runway for aggressive marketing and comprehensive product scaling." },
+      { header: "Demands higher equity (ownership)", description: "Requires conceding a significant portion of company equity, leading to higher founder dilution." },
+      { header: "Active involvement in decision-making", description: "Investor wants a board seat and veto rights on key executive hires and strategic pivots." },
+      { header: "Focus on fast growth", description: "Expects rapid customer acquisition prioritizing market share over immediate profitability." },
+      { header: "High pressure for returns", description: "Demands aggressive milestones and an eventual exit or IPO within a 3-5 year window." }
     ],
     speaker: "Kashish Gupta",
     layoutType: "split"
@@ -90,11 +100,11 @@ export const slideData: SlideData[] = [
     id: "slide-6",
     title: "Investor Offer 2",
     content: [
-      "Moderate funding amount",
-      "Lower equity requirement",
-      "Limited involvement in decisions",
-      "Long-term growth focus",
-      "Flexible expactations"
+      { header: "Moderate funding amount", description: "Provides adequate runway to hit the next major milestone without excess capital." },
+      { header: "Lower equity requirement", description: "Founders retain more ownership and control over the company's future direction." },
+      { header: "Limited involvement in decisions", description: "Investor takes an advisory role, trusting the founding team to manage daily operations." },
+      { header: "Long-term growth focus", description: "Prioritizes building a sustainable, profitable business over short-term vanity metrics." },
+      { header: "Flexible expectations", description: "Understands the nonlinear nature of startup growth and allows room for pivot and experimentation." }
     ],
     speaker: "Kirti Raj",
     layoutType: "split"
@@ -103,11 +113,11 @@ export const slideData: SlideData[] = [
     id: "slide-7",
     title: "Comparison of offers",
     content: [
-      "Funding: Offer 1 > Offer 2",
-      "Equity: Offer 1 higher dilution",
-      "Control: Offer 2 gives more control",
-      "Risk: Offer 1 higher pressure",
-      "Flexibility: Offer 2 more startup-friendly"
+      { header: "Funding: Offer 1 > Offer 2", description: "Offer 1 injects more cash, enabling faster but riskier deployment." },
+      { header: "Equity: Offer 1 higher dilution", description: "Offer 1 takes a significantly larger slice of the pie compared to Offer 2." },
+      { header: "Control: Offer 2 gives more control", description: "Offer 2 allows founders to retain board majority and strategic independence." },
+      { header: "Risk: Offer 1 higher pressure", description: "The aggressive goals set by Offer 1 increase the risk of burnout or premature scaling failure." },
+      { header: "Flexibility: Offer 2 more startup-friendly", description: "Offer 2's terms leave room for organic growth and adapting to market feedback." }
     ],
     speaker: "Kirti Raj",
     layoutType: "split"
@@ -116,11 +126,11 @@ export const slideData: SlideData[] = [
     id: "slide-8",
     title: "Key factors to consider",
     content: [
-      "Ownership and control",
-      "Growth expectations",
-      "Risk tolerance",
-      "Strategic guidance",
-      "Long-term vision alignment"
+      { header: "Ownership and control", description: "Balancing the need for capital with the desire to steer the company's vision." },
+      { header: "Growth expectations", description: "Aligning on whether to pursue a 'growth at all costs' or a 'sustainable profitability' model." },
+      { header: "Risk tolerance", description: "Evaluating the team's capacity to handle the intense pressure associated with rapid scaling." },
+      { header: "Strategic guidance", description: "Assessing if the investor brings valuable mentorship, industry connections, or operational expertise." },
+      { header: "Long-term vision alignment", description: "Ensuring both parties agree on what the ultimate success scenario looks like." }
     ],
     speaker: "Kartik Kumar",
     layoutType: "split"
@@ -129,11 +139,11 @@ export const slideData: SlideData[] = [
     id: "slide-9",
     title: "Pros & Cons - Offer 1",
     content: [
-      "Pros: More capital for expansion",
-      "Pros: Strong investor support",
-      "Pros: Faster scaling opportunities",
-      "Cons: Loss of control",
-      "Cons: High pressure"
+      { header: "Pros: More capital for expansion", description: "Allows for a massive marketing push and faster product iteration cycles." },
+      { header: "Pros: Strong investor support", description: "Access to a top-tier network for hiring, partnerships, and subsequent funding rounds." },
+      { header: "Pros: Faster scaling opportunities", description: "Enables immediate expansion into new geographical markets and product verticals." },
+      { header: "Cons: Loss of control", description: "Significant founder dilution and potential loss of strategic decision-making power." },
+      { header: "Cons: High pressure", description: "Intense scrutiny on meeting aggressive monthly and quarterly growth targets." }
     ],
     speaker: "Kartik Kumar",
     layoutType: "split"
@@ -142,11 +152,11 @@ export const slideData: SlideData[] = [
     id: "slide-10",
     title: "Pros & Cons - Offer 2",
     content: [
-      "Pros: Founder retains control",
-      "Pros: Lower pressure",
-      "Pros: Long-term stability",
-      "Cons: Limited funding",
-      "Cons: Slower growth"
+      { header: "Pros: Founder retains control", description: "Preserves the original vision and allows for more agile decision-making." },
+      { header: "Pros: Lower pressure", description: "Focus remains on product quality and healthy unit economics rather than hyper-growth." },
+      { header: "Pros: Long-term stability", description: "Builds a more resilient business structure that can weather market downturns." },
+      { header: "Cons: Limited funding", description: "May require more bootstrapped marketing and slower hiring." },
+      { header: "Cons: Slower growth", description: "Competitors with more capital might capture market share more quickly." }
     ],
     speaker: "Harshit Pandey",
     layoutType: "split",
@@ -155,11 +165,11 @@ export const slideData: SlideData[] = [
     id: "slide-11",
     title: "Recommendation",
     content: [
-      "Choose Investor Offer 2",
-      "Maintains startup independence",
-      "Lower risk and pressure",
-      "Better for sustainable growth",
-      "Aligns with long-term vision"
+      { header: "Choose Investor Offer 2", description: "The strategic benefits of control and sustainability outweigh the sheer amount of capital in Offer 1." },
+      { header: "Maintains startup independence", description: "Empowers the founding team to execute their full vision without external micromanagement." },
+      { header: "Lower risk and pressure", description: "Fosters a healthier company culture focused on steady, qualitative improvements." },
+      { header: "Better for sustainable growth", description: "Allows the company to reach profitability sooner rather than relying on endless funding rounds." },
+      { header: "Aligns with long-term vision", description: "Supports the mission of accessible education over purely maximizing short-term financial returns." }
     ],
     speaker: "Harshit Pandey",
     layoutType: "split"
@@ -168,11 +178,11 @@ export const slideData: SlideData[] = [
     id: "slide-12",
     title: "Justification",
     content: [
-      "Control is critical in early stages",
-      "Education startups need time to grow",
-      "Avoid high-pressure decisions",
-      "Flexibility allows innovations",
-      "Balanced growth is safer"
+      { header: "Control is critical in early stages", description: "Founders need the agility to pivot without navigating a complex board bureaucracy." },
+      { header: "Education startups need time to grow", description: "Ed-tech often requires longer sales cycles and community building that can't be purely bought with ads." },
+      { header: "Avoid high-pressure decisions", description: "Forced hyper-growth can lead to compromised product quality and customer churn." },
+      { header: "Flexibility allows innovations", description: "Maintaining independence allows the team to experiment with novel educational tools." },
+      { header: "Balanced growth is safer", description: "A steady ascent ensures core infrastructure keeps pace with user acquisition." }
     ],
     speaker: "Eshaan Saha",
     layoutType: "split"
@@ -181,10 +191,10 @@ export const slideData: SlideData[] = [
     id: "slide-13",
     title: "Conclusion",
     content: [
-      "Choosing the right investor is crucial",
-      "Not just money, but control matters",
-      "Long-term vision should guide decisions",
-      "Offer 2 is more suitable for this startup"
+      { header: "Choosing the right investor is crucial", description: "It's a marriage that will define the trajectory of the company for years to come." },
+      { header: "Not just money, but control matters", description: "The terms attached to funding are often more impactful than the dollar amount itself." },
+      { header: "Long-term vision should guide decisions", description: "Ensure the investor shares your fundamental definition of success." },
+      { header: "Offer 2 is more suitable for this startup", description: "It provides the necessary resources while protecting the founders' operational autonomy." }
     ],
     speaker: "Eshaan Saha",
     layoutType: "split"
