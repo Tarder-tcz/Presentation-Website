@@ -185,7 +185,11 @@ export const slideData: SlideData[] = [
       { header: "Balanced growth is safer", description: "A steady ascent ensures core infrastructure keeps pace with user acquisition." }
     ],
     speaker: "Eshaan Saha",
-    layoutType: "split"
+    layoutType: "split",
+    imageTop: "https://d1eipm3vz40hy0.cloudfront.net/images/blog/sales-cycle-visual.png",
+    imageTopClassName: "absolute -top-10 -left-15 -rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden",
+    imageBottom: "https://odblogs.zohowebstatic.com/sites/qntrl-blog/files/qntrl-blog/balancing-growth,-no-compromise-in-quality,-and-stability.jpg",
+    imageBottomClassName: "absolute -bottom-10 -right-15 rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden"
   },
   {
     id: "slide-13",
@@ -197,7 +201,11 @@ export const slideData: SlideData[] = [
       { header: "Offer 2 is more suitable for this startup", description: "It provides the necessary resources while protecting the founders' operational autonomy." }
     ],
     speaker: "Eshaan Saha",
-    layoutType: "split"
+    layoutType: "split",
+    imageTop: "https://thumbs.dreamstime.com/b/long-term-vision-d-illustration-pushpin-pinned-front-text-business-financial-investment-duration-concept-85501800.jpg",
+    imageTopClassName: "absolute -top-10 left-15 rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden",
+    imageBottom: "https://lindamarkowitz.com/wp-content/uploads/2023/09/0927-IG-Twitter-Post.jpg",
+    imageBottomClassName: "absolute -bottom-10 right-15 -rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden"
   },
   {
     id: "slide-14",
