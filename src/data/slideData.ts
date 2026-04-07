@@ -54,7 +54,7 @@ export const slideData: SlideData[] = [
     layoutType: "split",
     imageTop: "https://img.freepik.com/free-vector/stylish-welcome-lettering-banner-join-with-joy-happiness_1017-57675.jpg?semt=ais_incoming&w=740&q=80",
     imageTopClassName: "absolute -top-10 -left-15 -rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden",
-    imageBottom: "https://memberpress.com/wp-content/uploads/2020/10/learning-management-system.jpg",
+    imageBottom: "https://image.cnbcfm.com/api/v1/image/101317308-show-thumb-sharktank-1600x900.1910x1000.jpg",
     imageBottomClassName: "absolute -bottom-10 -right-15 rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden"
   },
   {
@@ -68,7 +68,11 @@ export const slideData: SlideData[] = [
       { header: "Justify decision logically", description: "Walking through the key metrics and qualitative factors that informed the final choice." }
     ],
     speaker: "Jay Singh",
-    layoutType: "split"
+    layoutType: "split",
+    imageTop: "https://t3.ftcdn.net/jpg/02/91/42/42/360_F_291424294_mhrkp94UIU8c0pKSSmrCCIY2LEXppZRR.jpg",
+    imageTopClassName: "absolute -top-10 left-15 rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden",
+    imageBottom: "https://media.licdn.com/dms/image/v2/D4E12AQGUF14946PPiQ/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1694069444501?e=2147483647&v=beta&t=qvbtpP2kTH_INQi4-3bsNT-uAaGF64Kc6VNA-61H2IM",
+    imageBottomClassName: "absolute -bottom-10 right-15 -rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden"
   },
   {
     id: "slide-4",
@@ -81,7 +85,11 @@ export const slideData: SlideData[] = [
       { header: "Goal: Rapid growth and market expansion", description: "Targeting 1 million active users within the next 18 months." }
     ],
     speaker: "Kashish Gupta",
-    layoutType: "split"
+    layoutType: "split",
+    imageTop: "https://i0.wp.com/www.meritstore.in/wp-content/uploads/2017/12/The-importance-of-focus-for-Academiuc-Success.png?fit=750%2C332&ssl=1",
+    imageTopClassName: "absolute -top-10 left-15 rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden",
+    imageBottom: "https://www.speexx.com/wp-content/uploads/Speexx_Blog_Goal_Setting.jpg",
+    imageBottomClassName: "absolute -bottom-10 right-15 -rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden"
   },
   {
     id: "slide-5",
@@ -120,7 +128,11 @@ export const slideData: SlideData[] = [
       { header: "Flexibility: Offer 2 more startup-friendly", description: "Offer 2's terms leave room for organic growth and adapting to market feedback." }
     ],
     speaker: "Kirti Raj",
-    layoutType: "split"
+    layoutType: "split",
+    imageTop: "https://www.shutterstock.com/image-illustration/option-1-2-outline-signpost-260nw-2235181277.jpg",
+    imageTopClassName: "absolute -top-10 -left-15 -rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden",
+    imageBottom: "https://rtgpkg.com/wp-content/uploads/2014/01/which-one.png",
+    imageBottomClassName: "absolute -bottom-10 -right-15 rotate-5 w-full max-w-md h-32 md:h-48 bg-white/50 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50 overflow-hidden"
   },
   {
     id: "slide-8",
@@ -211,7 +223,7 @@ export const slideData: SlideData[] = [
     id: "slide-14",
     title: "Thank you!",
     content: "Any questions?",
-    speaker: "Speaker",
+    speaker: "Team",
     layoutType: "title"
   }
 ];
